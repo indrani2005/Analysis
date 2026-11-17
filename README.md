@@ -1,50 +1,59 @@
 # SupeRR Selector Season 2 — Pressure Reliability
 
-Identify the most reliable batters and bowlers under pressure using the official IPL & T20I data pack (2022–2026).
+Data-driven system to measure how batters and bowlers perform in high-pressure match states versus contextual expectation, then rank by reliability across resampled matches.
+
+Built for Rajasthan Royals SupeRR Selector Season 2 (Round 1) using the official IPL & T20I ball-by-ball data pack (2022–2026).
 
 ## Live dashboard
 
 **https://indrani2005.github.io/Analysis/**
 
-- Top 10 batters & bowlers with explanation cards  
+- Interactive pressure rankings and player explanation cards  
 - Extended leaderboards  
 - [Methodology report](https://indrani2005.github.io/Analysis/methodology.html)
 
-## What this project claims
+## Contribution (what this is / isn’t)
 
-This does **not** invent Empirical Bayes, bootstrap ranking, or win-probability pressure.
+This project does **not** claim to invent Empirical Bayes shrinkage, bootstrap ranking, or win-probability / leverage pressure. Those are established sports-analytics tools.
 
-**Contribution:** integrating those established tools with:
+**The contribution is their integration for this problem:**
 
-1. Role-aware situational expectations  
-2. First-innings pressure modelling  
-3. Within-competition normalisation (IPL vs T20I)  
-4. Reliability-adjusted rankings (`R_stable = boot_mean − boot_sd`)
+1. **Role-aware situational expectations** — finishers are not judged like openers  
+2. **First-innings pressure modelling** — not chase-only / death-over heuristics  
+3. **Within-competition normalisation** — IPL and T20I scored separately, then combined  
+4. **Reliability-adjusted ranking** — primary sort by bootstrap lower bound  
+   \(R_{\text{stable}} = \bar{R} - \sigma\)
 
-## Unstop submission (Top 10)
+Central question: when the contest is genuinely difficult, does the player beat what a comparable player would be expected to produce in that situation — and can they repeat it?
 
-### Batters
-1. Dinesh Karthik · 2. Tristan Stubbs · 3. Andre Russell · 4. Rahul Tewatia · 5. Tim David  
-6. Marcus Stoinis · 7. Suryakumar Yadav · 8. Rinku Singh · 9. Namboori Tilak Varma · 10. David Miller
+## Method sketch
 
-### Bowlers
-1. Kagiso Rabada · 2. Josh Hazlewood · 3. Jasprit Bumrah · 4. Sunil Narine · 5. Rashid Khan (`4722`)  
-6. Nathan Ellis · 7. Matheesha Pathirana · 8. Jofra Archer · 9. Kuldeep Yadav · 10. Varun Chakravarthy
+| Layer | What it does |
+|---|---|
+| Pressure engine | Continuous pre-ball difficulty (rate / resources / time / par) + conditional live-contest leverage |
+| Performance | Actual vs expected residuals + absolute pressure execution |
+| Fairness | Legal-ball / extras / wicket attribution; role filters; IPL–T20I handling |
+| Reliability | Empirical Bayes shrinkage, eligibility thresholds, match-cluster bootstrap |
+
+Full equations, validation, and limitations are in the methodology page / `outputs/METHODOLOGY_REPORT.html`.
 
 ## Repo layout
 
 ```
-docs/                 # GitHub Pages dashboard
-super_rr/             # Python modelling pipeline
-tests/                # Attribution / pressure unit tests
-outputs/              # Submission rankings + methodology
-METHODOLOGY_PROPOSAL.md
+docs/                      GitHub Pages dashboard + methodology
+super_rr/                  Modelling pipeline
+tests/                     Attribution & pressure unit tests
+outputs/                   Generated tables + report artifacts
+METHODOLOGY_PROPOSAL.md    Locked modelling decisions
 requirements.txt
 ```
 
+Final ranked outputs are produced by the pipeline (see dashboard). They are intentionally not pasted as a plain name list in this README.
+
 ## Reproduce locally
 
-Place the official Data Pack CSVs under `6af458274c1e8_data_pack/Data Pack/` (gitignored), then:
+1. Place the official Data Pack CSVs under `6af458274c1e8_data_pack/Data Pack/` (gitignored — not redistributed here).  
+2. Run:
 
 ```bash
 pip install -r requirements.txt
@@ -53,6 +62,6 @@ python -m super_rr.run_pipeline
 python -m super_rr.fix_and_rerank
 ```
 
-## License / data
+## Data note
 
-Competition data pack is not redistributed in this repository. Rankings are derived from the official Round 1 files only.
+The competition CSV pack is **not** included in this repository. All reported rankings must be regenerated from the official Round 1 files.
