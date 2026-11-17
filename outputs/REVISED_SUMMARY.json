@@ -1,0 +1,186 @@
+{
+  "batter": [
+    {
+      "rank": 1,
+      "player_id": 143,
+      "player_name": "Dinesh Karthik",
+      "R_stable": 0.664112799156348,
+      "pressure_balls": 385.0,
+      "ipl_press": 264.0,
+      "families": "IPL,T20I"
+    },
+    {
+      "rank": 2,
+      "player_id": 20702,
+      "player_name": "Tristan Stubbs",
+      "R_stable": 0.5612824102335815,
+      "pressure_balls": 271.0,
+      "ipl_press": 198.0,
+      "families": "IPL,T20I"
+    },
+    {
+      "rank": 3,
+      "player_id": 1318,
+      "player_name": "Andre Russell",
+      "R_stable": 0.5418170746214199,
+      "pressure_balls": 327.0,
+      "ipl_press": 271.0,
+      "families": "IPL,T20I"
+    },
+    {
+      "rank": 4,
+      "player_id": 3926,
+      "player_name": "Rahul Tewatia",
+      "R_stable": 0.4550411595410231,
+      "pressure_balls": 237.0,
+      "ipl_press": 237.0,
+      "families": "IPL"
+    },
+    {
+      "rank": 5,
+      "player_id": 6396,
+      "player_name": "Tim David",
+      "R_stable": 0.4549063780463794,
+      "pressure_balls": 408.0,
+      "ipl_press": 301.0,
+      "families": "IPL,T20I"
+    },
+    {
+      "rank": 6,
+      "player_id": 2639,
+      "player_name": "Marcus Stoinis",
+      "R_stable": 0.4443915325545381,
+      "pressure_balls": 341.0,
+      "ipl_press": 256.0,
+      "families": "IPL,T20I"
+    },
+    {
+      "rank": 7,
+      "player_id": 1699,
+      "player_name": "Suryakumar Yadav",
+      "R_stable": 0.3518170764303377,
+      "pressure_balls": 338.0,
+      "ipl_press": 216.0,
+      "families": "IPL,T20I"
+    },
+    {
+      "rank": 8,
+      "player_id": 4708,
+      "player_name": "Rinku Singh",
+      "R_stable": 0.3102341282977026,
+      "pressure_balls": 406.0,
+      "ipl_press": 290.0,
+      "families": "IPL,T20I"
+    },
+    {
+      "rank": 9,
+      "player_id": 7897,
+      "player_name": "Namboori Tilak Varma",
+      "R_stable": 0.3042464451536407,
+      "pressure_balls": 475.0,
+      "ipl_press": 332.0,
+      "families": "IPL,T20I"
+    },
+    {
+      "rank": 10,
+      "player_id": 1077,
+      "player_name": "David Miller",
+      "R_stable": 0.275634794667428,
+      "pressure_balls": 418.0,
+      "ipl_press": 357.0,
+      "families": "IPL,T20I"
+    }
+  ],
+  "bowler": [
+    {
+      "rank": 1,
+      "player_id": 3628,
+      "player_name": "Kagiso Rabada",
+      "R_stable": 0.7148952910736587,
+      "pressure_balls": 321.0,
+      "ipl_press": 266.0,
+      "families": "IPL,T20I"
+    },
+    {
+      "rank": 2,
+      "player_id": 830,
+      "player_name": "Josh Hazlewood",
+      "R_stable": 0.6165879591142399,
+      "pressure_balls": 326.0,
+      "ipl_press": 213.0,
+      "families": "IPL,T20I"
+    },
+    {
+      "rank": 3,
+      "player_id": 2933,
+      "player_name": "Jasprit Bumrah",
+      "R_stable": 0.6126187812346309,
+      "pressure_balls": 455.0,
+      "ipl_press": 329.0,
+      "families": "IPL,T20I"
+    },
+    {
+      "rank": 4,
+      "player_id": 781,
+      "player_name": "Sunil Narine",
+      "R_stable": 0.6015302587973247,
+      "pressure_balls": 231.0,
+      "ipl_press": 231.0,
+      "families": "IPL"
+    },
+    {
+      "rank": 5,
+      "player_id": 4722,
+      "player_name": "Rashid Khan",
+      "R_stable": 0.5973615118226788,
+      "pressure_balls": 596.0,
+      "ipl_press": 451.0,
+      "families": "IPL,T20I"
+    },
+    {
+      "rank": 6,
+      "player_id": 7920,
+      "player_name": "Nathan Ellis",
+      "R_stable": 0.4726101040708463,
+      "pressure_balls": 287.0,
+      "ipl_press": 105.0,
+      "families": "IPL,T20I"
+    },
+    {
+      "rank": 7,
+      "player_id": 8661,
+      "player_name": "Matheesha Pathirana",
+      "R_stable": 0.4612207286713073,
+      "pressure_balls": 398.0,
+      "ipl_press": 269.0,
+      "families": "IPL,T20I"
+    },
+    {
+      "rank": 8,
+      "player_id": 3298,
+      "player_name": "Jofra Archer",
+      "R_stable": 0.4043997055953598,
+      "pressure_balls": 243.0,
+      "ipl_press": 139.0,
+      "families": "IPL,T20I"
+    },
+    {
+      "rank": 9,
+      "player_id": 3644,
+      "player_name": "Kuldeep Yadav",
+      "R_stable": 0.3714516592100951,
+      "pressure_balls": 423.0,
+      "ipl_press": 320.0,
+      "families": "IPL,T20I"
+    },
+    {
+      "rank": 10,
+      "player_id": 6256,
+      "player_name": "Varun Chakravarthy",
+      "R_stable": 0.3665734053135733,
+      "pressure_balls": 264.0,
+      "ipl_press": 189.0,
+      "families": "IPL,T20I"
+    }
+  ]
+}

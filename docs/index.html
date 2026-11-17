@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>SupeRR Pressure Reliability Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14213d; --muted:#5c6778; --line:#d8dee8; --bg:#f7f5f1; --card:#fff;
+  --accent:#c45c26; --accent2:#1f6f54; --navy:#1b2a4a;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"IBM Plex Sans",system-ui,sans-serif;color:var(--ink);background:
+  radial-gradient(1000px 420px at 0% -10%,#f4e6d8 0%,transparent 55%),
+  radial-gradient(800px 360px at 100% 0%,#e7eef8 0%,transparent 50%),
+  var(--bg);line-height:1.45}
+.wrap{max-width:1100px;margin:0 auto;padding:28px 18px 64px}
+.hero{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 26px;box-shadow:0 12px 40px rgba(20,33,61,.06)}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 8px}
+h1{font-family:"Source Serif 4",Georgia,serif;font-size:clamp(1.6rem,3vw,2.3rem);margin:0 0 8px;line-height:1.15}
+.sub{color:var(--muted);margin:0 0 16px;max-width:70ch}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:#f3e6dc;border:1px solid #e7d5c7;border-radius:999px;padding:6px 11px;font-size:12px;font-weight:600}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 8px}
+.nav button,.nav a{
+  appearance:none;border:1px solid var(--line);background:var(--card);color:var(--ink);
+  border-radius:999px;padding:9px 14px;font:inherit;font-weight:600;cursor:pointer;text-decoration:none;font-size:13.5px
+}
+.nav button.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.panel{display:none;margin-top:14px}
+.panel.active{display:block}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.card .rank{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.08em;text-transform:uppercase}
+.card h3{font-family:"Source Serif 4",Georgia,serif;margin:4px 0 8px;font-size:1.15rem}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12.5px}
+.metrics div{background:#fafbfd;border:1px solid var(--line);border-radius:10px;padding:8px}
+.metrics span{display:block;color:var(--muted);font-size:11px;margin-bottom:2px}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:13.5px}
+th,td{padding:10px;border-bottom:1px solid var(--line);text-align:left}
+th{background:var(--navy);color:#fff;font-size:12px}
+tr:nth-child(even) td{background:#fafbfd}
+tr:last-child td{border-bottom:none}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.detail{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.detail h3{font-family:"Source Serif 4",Georgia,serif;margin:0 0 8px}
+.muted{color:var(--muted)}
+.foot{margin-top:28px;color:var(--muted);font-size:12.5px}
+a{color:var(--accent2)}
+.statrow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+@media(max-width:700px){.statrow{grid-template-columns:1fr 1fr}}
+.stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px}
+.stat b{display:block;font-size:1.25rem;font-family:"Source Serif 4",Georgia,serif}
+.stat span{color:var(--muted);font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <p class="eyebrow">SupeRR Selector Season 2 · Live Dashboard</p>
+    <h1>Pressure Reliability Rankings</h1>
+    <p class="sub" id="subtitle">Loading…</p>
+    <div class="chips">
+      <span class="chip">Role-aware expectations</span>
+      <span class="chip">First-innings pressure</span>
+      <span class="chip">IPL / T20I normalised</span>
+      <span class="chip">Bootstrap R_stable</span>
+    </div>
+    <div class="statrow" id="stats"></div>
+  </header>
+
+  <nav class="nav">
+    <button class="active" data-panel="batters">Top Batters</button>
+    <button data-panel="bowlers">Top Bowlers</button>
+    <button data-panel="board-bat">Batter leaderboard</button>
+    <button data-panel="board-bowl">Bowler leaderboard</button>
+    <a href="methodology.html">Methodology</a>
+    <a href="https://github.com/indrani2005/Analysis" target="_blank" rel="noopener">GitHub</a>
+  </nav>
+
+  <section id="batters" class="panel active">
+    <div class="grid" id="batter-cards"></div>
+    <div class="detail" id="batter-detail"><p class="muted">Select a player card for the explanation.</p></div>
+  </section>
+
+  <section id="bowlers" class="panel">
+    <div class="grid" id="bowler-cards"></div>
+    <div class="detail" id="bowler-detail"><p class="muted">Select a player card for the explanation.</p></div>
+  </section>
+
+  <section id="board-bat" class="panel">
+    <table><thead><tr><th class="num">#</th><th>Player</th><th>Families</th><th class="num">Press balls</th><th class="num">R_stable</th><th class="num">Consistency</th></tr></thead><tbody id="bat-table"></tbody></table>
+  </section>
+
+  <section id="board-bowl" class="panel">
+    <table><thead><tr><th class="num">#</th><th>Player</th><th>Families</th><th class="num">Press balls</th><th class="num">R_stable</th><th class="num">Consistency</th></tr></thead><tbody id="bowl-table"></tbody></table>
+  </section>
+
+  <p class="foot">Built for Rajasthan Royals SupeRR Selector Season 2. Rankings use the official data pack only. Contribution = integration of role-aware expectations, first-innings pressure, competition normalisation, and reliability-adjusted rankings — not invention of EB / bootstrap / WP methods.</p>
+</div>
+
+<script>
+async function load(){
+  const res = await fetch('data/dashboard.json');
+  const data = await res.json();
+  document.getElementById('subtitle').textContent = data.subtitle;
+  const a = data.audit || {};
+  document.getElementById('stats').innerHTML = `
+    <div class="stat"><b>${(a.deliveries_scoped||0).toLocaleString()}</b><span>Scoped deliveries</span></div>
+    <div class="stat"><b>${a.matches_scoped||'—'}</b><span>Scoped matches</span></div>
+    <div class="stat"><b>${a.eligibility||'—'}</b><span>Eligibility freeze</span></div>
+    <div class="stat"><b>R_stable</b><span>${a.ranking_metric||'boot mean − sd'}</span></div>`;
+
+  const batCards = Object.fromEntries((data.batter_cards||[]).map(c => [c.player_id, c]));
+  const bowlCards = Object.fromEntries((data.bowler_cards||[]).map(c => [c.player_id, c]));
+
+  function renderTop(list, mountId, detailId, cards, role){
+    const mount = document.getElementById(mountId);
+    mount.innerHTML = list.map(p => `
+      <article class="card" data-id="${p.player_id}" data-role="${role}" style="cursor:pointer">
+        <div class="rank">Rank ${p.rank}</div>
+        <h3>${p.player_name}</h3>
+        <div class="metrics">
+          <div><span>R_stable</span><b>${Number(p.R_stable).toFixed(3)}</b></div>
+          <div><span>Pressure balls</span><b>${Math.round(p.pressure_balls)}</b></div>
+          <div><span>Matches</span><b>${Math.round(p.pressure_matches||0)}</b></div>
+          <div><span>Competitions</span><b>${p.families||'—'}</b></div>
+        </div>
+      </article>`).join('');
+    mount.querySelectorAll('.card').forEach(el => {
+      el.addEventListener('click', () => {
+        const id = Number(el.dataset.id);
+        const c = cards[id];
+        const box = document.getElementById(detailId);
+        if(!c){ box.innerHTML = '<p class="muted">No explanation card.</p>'; return; }
+        const deltaLabel = role==='batter' ? 'Runs above expected' : 'Runs prevented vs expected';
+        box.innerHTML = `
+          <h3>#${c.rank} ${c.player_name} <span class="muted">· id ${c.player_id}</span></h3>
+          <p>${c.why}</p>
+          <div class="metrics" style="grid-template-columns:repeat(4,1fr);margin-top:10px">
+            <div><span>${deltaLabel}</span><b>${Number(c.runs_above_expected).toFixed(1)}</b></div>
+            <div><span>Actual vs expected</span><b>${Number(c.actual_pressure_runs).toFixed(0)} / ${Number(c.expected_pressure_runs).toFixed(0)}</b></div>
+            <div><span>Consistency</span><b>${(100*Number(c.consistency)).toFixed(0)}%</b></div>
+            <div><span>Boot mean ± sd</span><b>${Number(c.boot_mean).toFixed(3)} ± ${Number(c.boot_sd).toFixed(3)}</b></div>
+          </div>`;
+      });
+    });
+    // auto-open rank 1
+    const first = mount.querySelector('.card');
+    if(first) first.click();
+  }
+
+  function fillTable(list, tbodyId){
+    document.getElementById(tbodyId).innerHTML = list.map((p,i)=>`
+      <tr>
+        <td class="num">${p.rank ?? (i+1)}</td>
+        <td>${p.player_name}</td>
+        <td>${p.families||'—'}</td>
+        <td class="num">${Math.round(p.pressure_balls||0)}</td>
+        <td class="num">${Number(p.R_stable).toFixed(3)}</td>
+        <td class="num">${p.consistency!=null ? (100*Number(p.consistency)).toFixed(0)+'%' : '—'}</td>
+      </tr>`).join('');
+  }
+
+  renderTop(data.batters_top10, 'batter-cards', 'batter-detail', batCards, 'batter');
+  renderTop(data.bowlers_top10, 'bowler-cards', 'bowler-detail', bowlCards, 'bowler');
+  fillTable(data.batters_leaderboard||data.batters_top10, 'bat-table');
+  fillTable(data.bowlers_leaderboard||data.bowlers_top10, 'bowl-table');
+}
+
+document.querySelectorAll('.nav button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    document.getElementById(btn.dataset.panel).classList.add('active');
+  });
+});
+
+load().catch(err=>{
+  document.getElementById('subtitle').textContent = 'Failed to load dashboard data: '+err;
+});
+</script>
+</body>
+</html>

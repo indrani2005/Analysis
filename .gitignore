@@ -1,0 +1,15 @@
+.pytest_cache/
+__pycache__/
+*.pyc
+.DS_Store
+__MACOSX/
+*.zip
+.vscode/
+.idea/
+
+# Official data pack (large; keep local only)
+6af458274c1e8_data_pack/
+
+# Heavy intermediates if regenerated
+outputs/deliveries_modeled.csv.gz
+outputs/*match_aggregates*

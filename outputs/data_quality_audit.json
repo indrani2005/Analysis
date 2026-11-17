@@ -1,0 +1,22 @@
+{
+  "raw_deliveries": 200999,
+  "raw_matches": 883,
+  "bbb_matches": 867,
+  "abandoned_or_no_result_matches": 40,
+  "super_over_deliveries": 38,
+  "scoped_deliveries": 199208,
+  "scoped_matches": 843,
+  "scoped_legal": 190983,
+  "ipl_matches": 362,
+  "t20i_matches": 481,
+  "revised_target_matches_in_scope": 22,
+  "pressure_threshold": 0.4376365002157415,
+  "pressure_balls": 49803,
+  "wp_metrics": {
+    "enabled": true,
+    "auc": 0.8017694791271661,
+    "brier": 0.18062431950363775,
+    "n": 199029,
+    "lambda": 0.25
+  }
+}

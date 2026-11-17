@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>SupeRR Selector Season 2 — Methodology Report</title>
+<style>
+  :root {
+    --ink: #14213d;
+    --muted: #5c6778;
+    --line: #d9dee7;
+    --paper: #fbfaf7;
+    --card: #ffffff;
+    --accent: #c45c26;
+    --accent-soft: #f3e6dc;
+    --good: #1f6f54;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    color: var(--ink);
+    background:
+      radial-gradient(1200px 500px at 10% -10%, #f7ebe1 0%, transparent 55%),
+      radial-gradient(900px 400px at 100% 0%, #e8eef7 0%, transparent 50%),
+      var(--paper);
+    font-family: "Source Serif 4", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    line-height: 1.55;
+  }
+  .wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 48px 28px 72px;
+  }
+  .hero {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 36px 34px 30px;
+    box-shadow: 0 10px 40px rgba(20, 33, 61, 0.06);
+  }
+  .eyebrow {
+    font-family: "Segoe UI", system-ui, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin: 0 0 10px;
+  }
+  h1 {
+    font-size: clamp(1.7rem, 3vw, 2.35rem);
+    line-height: 1.15;
+    margin: 0 0 10px;
+    font-weight: 700;
+  }
+  .subtitle {
+    font-size: 1.08rem;
+    color: var(--muted);
+    margin: 0 0 18px;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    font-size: 12.5px;
+  }
+  .chip {
+    background: var(--accent-soft);
+    color: var(--ink);
+    border-radius: 999px;
+    padding: 6px 11px;
+    border: 1px solid #eb rec;
+    border-color: #e7d5c7;
+  }
+  h2 {
+    font-size: 1.35rem;
+    margin: 42px 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--ink);
+  }
+  h3 {
+    font-size: 1.05rem;
+    margin: 22px 0 8px;
+    color: var(--ink);
+  }
+  p, li { font-size: 1rem; }
+  .lead {
+    font-size: 1.08rem;
+    background: var(--card);
+    border-left: 4px solid var(--accent);
+    padding: 14px 16px;
+    margin: 16px 0;
+  }
+  .claim {
+    background: #f4f7fb;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin: 18px 0 8px;
+  }
+  .claim strong { color: var(--good); }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin: 14px 0 6px;
+  }
+  @media (max-width: 700px) {
+    .grid { grid-template-columns: 1fr; }
+    .wrap { padding: 28px 16px 56px; }
+    .hero { padding: 24px 18px; }
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 14px 12px;
+  }
+  .card .n {
+    font-family: "Segoe UI", system-ui, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .card p { margin: 0; font-size: 0.95rem; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    font-size: 13.5px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 12px 0 8px;
+  }
+  th, td {
+    padding: 9px 10px;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: #1b2a4a;
+    color: #fff;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #fafbfd; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  code, pre {
+    font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+    font-size: 0.86rem;
+  }
+  pre {
+    background: #152238;
+    color: #e8eef7;
+    padding: 14px 16px;
+    border-radius: 12px;
+    overflow-x: auto;
+  }
+  ul { padding-left: 1.2rem; }
+  .foot {
+    margin-top: 40px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-family: "Segoe UI", system-ui, sans-serif;
+    font-size: 12.5px;
+  }
+  .eq {
+    background: #f7f5f1;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-family: "Cambria Math", Georgia, serif;
+    overflow-x: auto;
+  }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <p class="eyebrow">Rajasthan Royals · SupeRR Selector Season 2 · Round 1</p>
+    <h1>Methodology Report</h1>
+    <p class="subtitle">Identifying the most reliable batters and bowlers under pressure using the official IPL &amp; T20I data pack (2022–2026).</p>
+    <div class="meta">
+      <span class="chip">Pressure-adjusted reliability</span>
+      <span class="chip">Role-aware expectations</span>
+      <span class="chip">IPL / T20I normalised</span>
+      <span class="chip">Bootstrap lower-bound ranking</span>
+      <span class="chip">Seed 42</span>
+    </div>
+  </header>
+
+  <h2>1. Contribution statement</h2>
+  <div class="claim">
+    <p style="margin:0 0 10px"><strong>What this is not claiming.</strong> Empirical Bayes shrinkage, bootstrap ranking, and win-probability / leverage pressure are established tools in sports analytics. This submission does not invent them.</p>
+    <p style="margin:0"><strong>What this submission contributes.</strong> Their particular integration for SupeRR Selector: <em>role-aware situational expectations</em>, <em>first-innings pressure modelling</em>, <em>within-competition normalisation (IPL vs T20I)</em>, and <em>reliability-adjusted rankings</em> that reward repeatable outperformance of context — not reputation or raw death-over averages.</p>
+  </div>
+
+  <p class="lead">Central question: when match conditions are genuinely difficult, does this player beat what a comparable player would be expected to produce in that situation — and can they do it again?</p>
+
+  <h2>2. Problem framing</h2>
+  <p>Raw strike rate and economy treat every delivery equally. A quiet powerplay single and a required-rate scramble in a live chase are not the same skill test.</p>
+  <p>We therefore (i) score pre-delivery match difficulty continuously, (ii) compare actual outcomes to role- and context-matched expectations, and (iii) rank by a bootstrap stability lower bound rather than a single peak performance.</p>
+
+  <h2>3. Data scope &amp; attribution</h2>
+  <table>
+    <thead><tr><th>Step</th><th>Decision</th><th>Outcome</th></tr></thead>
+    <tbody>
+      <tr><td>Source</td><td>Official Data Pack CSVs</td><td>200,999 deliveries · 883 matches</td></tr>
+      <tr><td>Ball coverage</td><td>Matches with ball-by-ball rows</td><td>867 matches</td></tr>
+      <tr><td>Exclusions</td><td>Abandoned / No Result</td><td>Removed from final rankings</td></tr>
+      <tr><td>Super overs</td><td>Innings ≥ 3</td><td>Excluded from primary model</td></tr>
+      <tr><td>Revised targets</td><td>Kept if state/target reconstructable</td><td>Retained</td></tr>
+      <tr><td>Scoped set</td><td>Innings 1–2 only</td><td><strong>199,208</strong> deliveries · <strong>843</strong> matches</td></tr>
+    </tbody>
+  </table>
+  <ul>
+    <li><strong>Legal ball:</strong> not wide, not Overstep (no-ball).</li>
+    <li><strong>Bat runs:</strong> off-the-bat <code>runs</code>.</li>
+    <li><strong>Bowler runs:</strong> bat runs + wide/no-ball extras; byes and leg-byes excluded.</li>
+    <li><strong>Bowler wickets:</strong> Caught, Bowled, LBW, Stump, Hit Wicket only.</li>
+    <li><strong>Identity:</strong> always <code>player_id</code> (name collisions exist, including two “Rashid Khan” IDs — submission uses <code>4722</code>).</li>
+  </ul>
+
+  <h2>4. Pressure definition</h2>
+  <p>Pressure uses pre-delivery information only (no look-ahead).</p>
+
+  <div class="grid">
+    <div class="card">
+      <div class="n">Second innings</div>
+      <p>Rate stress (RRR−CRR &amp; absolute RRR), resource stress (wickets &amp; balls left), deadline stress, and closeness when the equation is tight.</p>
+    </div>
+    <div class="card">
+      <div class="n">First innings</div>
+      <p>Par deficit vs competition-family expected finish, wicket-collapse stress, and late-innings intensity. Pressure is <em>not</em> chase-only.</p>
+    </div>
+    <div class="card">
+      <div class="n">Live-contest filter</div>
+      <p>Hopeless late chases with extreme required rates are down-weighted so “pressure” means a live contest, not a decided game.</p>
+    </div>
+    <div class="card">
+      <div class="n">Leverage (conditional)</div>
+      <p>Match-blocked logistic WP leverage is blended in only after hold-out checks (AUC ≈ 0.80, Brier ≈ 0.18). Foundation remains the transparent resource/time score.</p>
+    </div>
+  </div>
+  <p>High-pressure balls are taken from the upper tail of the continuous score (~top 20% in the final freeze), with intensity weights above the cut.</p>
+
+  <h2>5. Performance measurement</h2>
+  <h3>5.1 Role-aware expectations</h3>
+  <p>Expected outcomes are cell means, shrunk with standard Empirical Bayes toward competition-family priors.</p>
+  <ul>
+    <li><strong>Batter cell:</strong> family × innings × phase × wicket band × <strong>role band</strong> (top / middle / lower) × RRR or par band.</li>
+    <li><strong>Bowler cell:</strong> family × innings × phase × wicket band × pace/spin × RRR or par band.</li>
+  </ul>
+  <p>Finishers are not judged against openers. Residuals credit runs above / prevented versus expectation, with a run-valued wicket term.</p>
+
+  <h3>5.2 Absolute execution</h3>
+  <p>Pressure strike rate (batters) and pressure economy / wicket rate (bowlers) are z-scored within competition among players with adequate samples. One-ball freak rates are excluded from the z pool.</p>
+
+  <h3>5.3 Competition normalisation</h3>
+  <p>IPL and T20I are normalised separately, then combined with sample-proportional weights. Single-competition players remain eligible; uncertainty is absorbed by the reliability layer. The Unstop shortlist additionally requires a meaningful IPL pressure sample so franchise-relevant evidence is not drowned by T20I-only volume.</p>
+
+  <h2>6. Reliability-adjusted ranking</h2>
+  <div class="eq">
+    R = 0.35 · z(RAE) + 0.35 · z(Execution) + 0.05 · z(Clutch<sub>capped</sub>) + 0.25 · f(Consistency)
+  </div>
+  <p>Clutch (pressure residual − non-pressure residual) is lightly weighted and capped so always-good players are not punished for also performing in ordinary conditions. A par gate requires positive contextual residual under pressure.</p>
+  <div class="eq">
+    R<sub>stable</sub> = R̄<sub>bootstrap</sub> − σ<sub>bootstrap</sub>
+  </div>
+  <p><strong>Primary sort key:</strong> match-cluster bootstrap lower bound (1 SD). Also reported: bootstrap mean, SD, and 90% lower bound.</p>
+  <p><strong>Eligibility freeze:</strong> ≥ 200 pressure balls and ≥ 12 pressure matches (sensitivity also checked at lower thresholds).</p>
+
+  <h2>7. Final rankings for Unstop</h2>
+  <h3>Top 10 batters under pressure</h3>
+  <table>
+    <thead>
+      <tr><th class="num">Rank</th><th>Player</th><th class="num">ID</th><th class="num">Pressure balls</th><th class="num">IPL pressure</th><th class="num">R<sub>stable</sub></th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="num">1</td><td>Dinesh Karthik</td><td class="num">143</td><td class="num">385</td><td class="num">264</td><td class="num">0.664</td></tr>
+      <tr><td class="num">2</td><td>Tristan Stubbs</td><td class="num">20702</td><td class="num">271</td><td class="num">198</td><td class="num">0.561</td></tr>
+      <tr><td class="num">3</td><td>Andre Russell</td><td class="num">1318</td><td class="num">327</td><td class="num">271</td><td class="num">0.542</td></tr>
+      <tr><td class="num">4</td><td>Rahul Tewatia</td><td class="num">3926</td><td class="num">237</td><td class="num">237</td><td class="num">0.455</td></tr>
+      <tr><td class="num">5</td><td>Tim David</td><td class="num">6396</td><td class="num">408</td><td class="num">301</td><td class="num">0.455</td></tr>
+      <tr><td class="num">6</td><td>Marcus Stoinis</td><td class="num">2639</td><td class="num">341</td><td class="num">256</td><td class="num">0.444</td></tr>
+      <tr><td class="num">7</td><td>Suryakumar Yadav</td><td class="num">1699</td><td class="num">338</td><td class="num">216</td><td class="num">0.352</td></tr>
+      <tr><td class="num">8</td><td>Rinku Singh</td><td class="num">4708</td><td class="num">406</td><td class="num">290</td><td class="num">0.310</td></tr>
+      <tr><td class="num">9</td><td>Namboori Tilak Varma</td><td class="num">7897</td><td class="num">475</td><td class="num">332</td><td class="num">0.304</td></tr>
+      <tr><td class="num">10</td><td>David Miller</td><td class="num">1077</td><td class="num">418</td><td class="num">357</td><td class="num">0.276</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Top 10 bowlers under pressure</h3>
+  <table>
+    <thead>
+      <tr><th class="num">Rank</th><th>Player</th><th class="num">ID</th><th class="num">Pressure balls</th><th class="num">IPL pressure</th><th class="num">R<sub>stable</sub></th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="num">1</td><td>Kagiso Rabada</td><td class="num">3628</td><td class="num">321</td><td class="num">266</td><td class="num">0.715</td></tr>
+      <tr><td class="num">2</td><td>Josh Hazlewood</td><td class="num">830</td><td class="num">326</td><td class="num">213</td><td class="num">0.617</td></tr>
+      <tr><td class="num">3</td><td>Jasprit Bumrah</td><td class="num">2933</td><td class="num">455</td><td class="num">329</td><td class="num">0.613</td></tr>
+      <tr><td class="num">4</td><td>Sunil Narine</td><td class="num">781</td><td class="num">231</td><td class="num">231</td><td class="num">0.602</td></tr>
+      <tr><td class="num">5</td><td>Rashid Khan</td><td class="num">4722</td><td class="num">596</td><td class="num">451</td><td class="num">0.597</td></tr>
+      <tr><td class="num">6</td><td>Nathan Ellis</td><td class="num">7920</td><td class="num">287</td><td class="num">105</td><td class="num">0.473</td></tr>
+      <tr><td class="num">7</td><td>Matheesha Pathirana</td><td class="num">8661</td><td class="num">398</td><td class="num">269</td><td class="num">0.461</td></tr>
+      <tr><td class="num">8</td><td>Jofra Archer</td><td class="num">3298</td><td class="num">243</td><td class="num">139</td><td class="num">0.404</td></tr>
+      <tr><td class="num">9</td><td>Kuldeep Yadav</td><td class="num">3644</td><td class="num">423</td><td class="num">320</td><td class="num">0.371</td></tr>
+      <tr><td class="num">10</td><td>Varun Chakravarthy</td><td class="num">6256</td><td class="num">264</td><td class="num">189</td><td class="num">0.367</td></tr>
+    </tbody>
+  </table>
+  <p>Player-level explanation cards (pressure sample, expected vs actual, consistency, ranking uncertainty) are provided alongside this report.</p>
+
+  <h2>8. Validation &amp; limitations</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="n">Checks</div>
+      <p>Unit tests for extras/wickets/IDs; match-blocked WP gates; pressure sanity; eligibility &amp; weighting sensitivity.</p>
+    </div>
+    <div class="card">
+      <div class="n">Limits</div>
+      <p>T20 pressure skill is noisy; venue/opposition effects are limited; par is family-based; rankings reflect this pack and these choices — not reputation.</p>
+    </div>
+  </div>
+
+  <h2>9. Reproducibility</h2>
+  <pre>pip install -r requirements.txt
+python -m pytest tests -q
+python -m super_rr.run_pipeline
+python -m super_rr.fix_and_rerank</pre>
+
+  <p class="foot">
+    SupeRR Selector Season 2 · Methodology report for Round 1 submission ·
+    Rankings derived only from the supplied official data pack.
+  </p>
+</div>
+</body>
+</html>
