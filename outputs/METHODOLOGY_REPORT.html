@@ -6,24 +6,26 @@
 <title>SupeRR Selector Season 2 — Methodology Report</title>
 <style>
   :root {
-    --ink: #14213d;
-    --muted: #5c6778;
-    --line: #d9dee7;
-    --paper: #fbfaf7;
+    --ink: #0f1b2d;
+    --muted: #5a6a7d;
+    --line: #d5dde8;
+    --paper: #f3f7f2;
     --card: #ffffff;
-    --accent: #c45c26;
-    --accent-soft: #f3e6dc;
-    --good: #1f6f54;
+    --accent: #EA1A85;
+    --accent-soft: #ffe6f3;
+    --good: #004BA0;
   }
   * { box-sizing: border-box; }
   body {
     margin: 0;
     color: var(--ink);
-    background:
-      radial-gradient(1200px 500px at 10% -10%, #f7ebe1 0%, transparent 55%),
-      radial-gradient(900px 400px at 100% 0%, #e8eef7 0%, transparent 50%),
-      var(--paper);
-    font-family: "Source Serif 4", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    background-color: #f3f7f2;
+    background-image:
+      linear-gradient(90deg, rgba(201,223,192,.3) 1px, transparent 1px),
+      linear-gradient(rgba(201,223,192,.22) 1px, transparent 1px),
+      linear-gradient(180deg, #f7fbf6 0%, #eaf3e6 45%, #f4f7f9 100%);
+    background-size: 48px 48px, 48px 48px, auto;
+    font-family: "Barlow", "Segoe UI", system-ui, sans-serif;
     line-height: 1.55;
   }
   .wrap {
@@ -34,12 +36,13 @@
   .hero {
     background: var(--card);
     border: 1px solid var(--line);
-    border-radius: 18px;
-    padding: 36px 34px 30px;
-    box-shadow: 0 10px 40px rgba(20, 33, 61, 0.06);
+    border-top: 5px solid var(--accent);
+    border-radius: 0;
+    padding: 28px 26px 24px;
+    box-shadow: none;
   }
   .eyebrow {
-    font-family: "Segoe UI", system-ui, sans-serif;
+    font-family: "Barlow", system-ui, sans-serif;
     font-size: 12px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -48,10 +51,13 @@
     margin: 0 0 10px;
   }
   h1 {
+    font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
     font-size: clamp(1.7rem, 3vw, 2.35rem);
     line-height: 1.15;
     margin: 0 0 10px;
     font-weight: 700;
+    text-transform: uppercase;
+    color: #003370;
   }
   .subtitle {
     font-size: 1.08rem;
@@ -68,16 +74,18 @@
   .chip {
     background: var(--accent-soft);
     color: var(--ink);
-    border-radius: 999px;
+    border-radius: 0;
     padding: 6px 11px;
-    border: 1px solid #eb rec;
-    border-color: #e7d5c7;
+    border: 1px solid #f5b6d4;
   }
   h2 {
-    font-size: 1.35rem;
+    font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+    font-size: 1.45rem;
     margin: 42px 0 12px;
     padding-bottom: 8px;
-    border-bottom: 2px solid var(--ink);
+    border-bottom: 3px solid #004BA0;
+    text-transform: uppercase;
+    color: #003370;
   }
   h3 {
     font-size: 1.05rem;
@@ -145,7 +153,7 @@
     vertical-align: top;
   }
   th {
-    background: #1b2a4a;
+    background: #004BA0;
     color: #fff;
     font-weight: 600;
     font-size: 12px;
@@ -185,10 +193,11 @@
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="wrap">
+  <p style="margin:0 0 14px;font-family:Barlow,sans-serif;font-size:13px"><a href="./" style="color:#004BA0;font-weight:700;text-decoration:none">← Back to dashboard</a></p>
 
   <header class="hero">
     <p class="eyebrow">Rajasthan Royals · SupeRR Selector Season 2 · Round 1</p>
